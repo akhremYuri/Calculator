@@ -23,6 +23,10 @@ function percentageDisplay() {
 
 }
 
+function backspaceDisplay() {
+  display.value = display.value.slice(0, -1)
+}
+
 function calculate(){
 
 
@@ -61,6 +65,7 @@ document.addEventListener('keydown', handleKeyDown);
 
 function handleKeyDown(event) {
   const key = event.key;
+  console.log(key);
 
   if (!isNaN(key) || ['+', '-', '*', '/', '.'].includes(key)) {
     appendDisplay(key);
@@ -69,4 +74,4 @@ function handleKeyDown(event) {
   } else if (key === 'Escape') {
     clearDisplay();
   }
-}
+}23
