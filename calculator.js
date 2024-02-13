@@ -3,6 +3,10 @@ const display = document.querySelector('#display');
 let isCalculationPerformed = false;
 
 function appendDisplay(input){
+  if (input === '.' && display.value.includes('.')) {
+    return;
+  }
+
   if(isCalculationPerformed){
     display.value = '';
     isCalculationPerformed = false;
@@ -52,3 +56,17 @@ function calculate(){
 
 
 };
+
+document.addEventListener('keydown', handleKeyDown);
+
+function handleKeyDown(event) {
+  const key = event.key;
+
+  if (!isNaN(key) || ['+', '-', '*', '/', '.'].includes(key)) {
+    appendDisplay(key);
+  } else if (key === 'Enter') {
+    calculate();
+  } else if (key === 'Escape') {
+    clearDisplay();
+  }
+}
