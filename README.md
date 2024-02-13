@@ -1,4 +1,5 @@
-**Calculator Using Vanilla JavaScript**
+
+**Calculator Using Vanilla JavaScript**   https://akhremyuri.github.io/Calculator/
 
 **Overview:**
 This is a simple calculator that was designed using HTML, CSS and Vanilla JavaScript which allows individual to perform simple calculations.
@@ -11,5 +12,6 @@ This is a simple calculator that was designed using HTML, CSS and Vanilla JavaSc
 **percentageDisplay():** this function converts the current value in the display by dividing it by 100 and updating the display with the result.
 
 **calculate():** it starts with getting the current expression from the display. Then use the regular expressions to split the expression into an array of operators and an array of numbers. Next, it initializes a variable "result" with the first number from the array. it then iterated through the array of operators. For each operator, it fetches the next number from the array of numbers and performs the corresponding operation("+", "-", "*", "/") with the current result. Finally, it updates the display value with the calculated result.
+
 
 
