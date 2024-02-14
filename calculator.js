@@ -28,30 +28,84 @@ function backspaceDisplay() {
 }
 
 function calculateExpr(expression) {
-  //const expression = display.value.trim();
+  function calculationMethod1() {
+    const operators = expression.match(/[\+\-\*\/]/g);
+    const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
+    let result = numbers[0];
 
-  const operators = expression.match(/[\+\-\*\/]/g);
-  const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
-  let result = numbers[0];
+    for (let i = 0; i < operators.length; i++) {
+      const operator = operators[i];
+      console.log(operator);
 
-  for (let i = 0; i < operators.length; i++) {
-    const operator = operators[i];
-    console.log(operator);
-
-    const nextNumber = numbers[i + 1];
-    if (operator === "+") {
-      result = result + nextNumber;
-    } else if (operator === "-") {
-      result = result - nextNumber;
-    } else if (operator === "*") {
-      result = result * nextNumber;
-    } else if (operator === "/") {
-      result = result / nextNumber;
+      const nextNumber = numbers[i + 1];
+      if (operator === "+") {
+        result = result + nextNumber;
+      } else if (operator === "-") {
+        result = result - nextNumber;
+      } else if (operator === "*") {
+        result = result * nextNumber;
+      } else if (operator === "/") {
+        result = result / nextNumber;
+      }
     }
+    return result;
   }
-  //display.value = result;
-  //isCalculationPerformed = true;
-  return result;
+
+  function calculationMethod2() {
+    function operatorFunction(operator, num1, num2) {
+      if (operator === "+") {
+        return num1 + num2;
+      } else if (operator === "-") {
+        return num1 - num2;
+      } else if (operator === "*") {
+        return num1 * num2;
+      } else if (operator === "/") {
+        return num1 / num2;
+      } else {
+        console.log('ERROR in "operatorFunction": unknown operator!');
+        return;
+      }
+    }
+
+    function isHighPriority(operator) {
+      if (operator.match(/[\*\/]/g)) {
+        return 1;
+      }
+      return 0;
+    }
+
+    const operators = expression.match(/[\+\-\*\/]/g);
+    const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
+    if (numbers.length - operators.length != 1) {
+      console.log(
+        `ERROR in "calculationMethod2": the number of operators and numbers do not match!`
+      );
+      return;
+    }
+
+    let result = numbers[0];
+    let bufferValue, bufferOperator;
+    for (let i = 0; i < operators.length; i++) {
+      const operator = operators[i];
+      if (isHighPriority(operator)) {
+        result = operatorFunction(operator, result, numbers[i + 1]);
+      } else {
+        if (bufferValue) {
+          result = operatorFunction(bufferOperator, bufferValue, result);
+        }
+        bufferValue = result;
+        bufferOperator = operator;
+        result = numbers[i + 1];
+      }
+    }
+    if (bufferValue) {
+      result = operatorFunction(bufferOperator, bufferValue, result);
+    }
+    return result;
+  }
+
+  // return calculationMethod1();
+  return calculationMethod2();
 }
 
 function addListItemToLogList(expression) {
