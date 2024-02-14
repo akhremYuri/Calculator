@@ -5,39 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://kit.fontawesome.com/b55c1fdbd8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/b55c1fdbd8.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <h1>MAIN Assignment 1 (Calculator)</h1>
+    <div class="wrapper">
+      <div class="container">
+        <input id="display" class="display" readonly />
 
-    <div class="container">
-      <input id="display" class="display" readonly />
-
-      <div class="keys">
-        <button onclick= "appendDisplay('+')" class="operator">+</button>
-        <button onclick= "appendDisplay('7')">7</button>
-        <button onclick= "appendDisplay('8')">8</button>
-        <button onclick= "appendDisplay('3')">3</button>
-        <button onclick= "appendDisplay('*')" class="operator">*</button>
-        <button onclick= "appendDisplay('9')">9</button>
-        <button onclick= "appendDisplay('4')">4</button>
-        <button onclick= "appendDisplay('5')">5</button>
-        <button onclick= "appendDisplay('-')" class="operator">-</button>
-        <button onclick= "appendDisplay('6')">6</button>
-        <button onclick= "appendDisplay('1')">1</button>
-        <button onclick= "appendDisplay('2')">2</button>
-        <button onclick= "appendDisplay('/')" class="operator">/</button>
-        <button onclick= "appendDisplay('0')">0</button>
-        <button onclick= "appendDisplay('.')">.</button>
-        <button onclick= "calculate()">=</button>
-        <button onclick= "percentageDisplay('%')" class="operator">%</button>
-        <button onclick= "clearDisplay('C')" class="operator">C</button>
-        <button onclick= "backspaceDisplay()"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="keys">
+          <button onclick="appendDisplay('+')" class="operator">+</button>
+          <button onclick="appendDisplay('7')">7</button>
+          <button onclick="appendDisplay('8')">8</button>
+          <button onclick="appendDisplay('3')">3</button>
+          <button onclick="appendDisplay('*')" class="operator">*</button>
+          <button onclick="appendDisplay('9')">9</button>
+          <button onclick="appendDisplay('4')">4</button>
+          <button onclick="appendDisplay('5')">5</button>
+          <button onclick="appendDisplay('-')" class="operator">-</button>
+          <button onclick="appendDisplay('6')">6</button>
+          <button onclick="appendDisplay('1')">1</button>
+          <button onclick="appendDisplay('2')">2</button>
+          <button onclick="appendDisplay('/')" class="operator">/</button>
+          <button onclick="appendDisplay('0')">0</button>
+          <button onclick="appendDisplay('.')">.</button>
+          <button onclick="calculate()">=</button>
+          <button onclick="percentageDisplay('%')" class="operator">%</button>
+          <button onclick="clearDisplay('C')" class="operator">C</button>
+          <button onclick="backspaceDisplay()">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+        </div>
+      </div>
+      <div class="log">
+        <p>Calculation history</p>
+        <ul id="calcLog" class="calcLog"></ul>
       </div>
     </div>
-
-
     <script src="calculator.js"></script>
   </body>
 </html>
