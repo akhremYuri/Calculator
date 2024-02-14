@@ -29,7 +29,6 @@ function backspaceDisplay() {
 
 function calculate(){
 
-
   const expression = display.value.trim();
   const operators = expression.match(/[\+\-\*\/]/g);
   const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
@@ -37,7 +36,6 @@ function calculate(){
 
   for (let i = 0; i < operators.length; i++){
     const operator = operators[i];
-    console.log(operator);
 
     const nextNumber = numbers[i + 1];
     if (operator === '+'){
