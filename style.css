@@ -1,7 +1,7 @@
 body{
   margin: 0;
   padding: 0;
-  background: linear-gradient(hsl(240, 19%, 43%), hsl(60, 59%, 33%)) ;
+  background: linear-gradient(hsl(240, 19%, 43%), hsl(60, 59%, 33%), hsl(240, 78%, 37%)) ;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -4,6 +4,10 @@ const calcLog = document.querySelector("#calcLog");
 let isCalculationPerformed = false;
 
 function appendDisplay(input) {
+  if (input === "." && display.value.includes(".")) {
+    return;
+  }
+
   if (isCalculationPerformed) {
     display.value = "";
     isCalculationPerformed = false;
@@ -19,8 +23,13 @@ function percentageDisplay() {
   display.value = display.value / 100;
 }
 
+function backspaceDisplay() {
+  display.value = display.value.slice(0, -1);
+}
+
 function calculateExpr(expression) {
   //const expression = display.value.trim();
+
   const operators = expression.match(/[\+\-\*\/]/g);
   const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
   let result = numbers[0];
@@ -63,3 +72,18 @@ calcLog.onclick = function (event) {
   let target = event.target;
   if (target.tagName === "LI") calculate(target.innerHTML, false);
 };
+
+document.addEventListener("keydown", handleKeyDown);
+
+function handleKeyDown(event) {
+  const key = event.key;
+  console.log(key);
+
+  if (!isNaN(key) || ["+", "-", "*", "/", "."].includes(key)) {
+    appendDisplay(key);
+  } else if (key === "Enter") {
+    calculate();
+  } else if (key === "Escape") {
+    clearDisplay();
+  }
+}
