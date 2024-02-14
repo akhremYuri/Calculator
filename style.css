@@ -96,6 +96,7 @@ button:active{
   width: 400px;
   height: 100%;
   overflow-y: scroll;
+  overflow: hidden;
   list-style: none;
   padding: 20px;
 }
