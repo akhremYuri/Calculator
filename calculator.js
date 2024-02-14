@@ -32,6 +32,13 @@ function calculateExpr(expression) {
 
   const operators = expression.match(/[\+\-\*\/]/g);
   const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
+
+  if (operators.length !== numbers.length - 1) {
+    // Handle invalid expression
+    console.error("Invalid expression");
+    return NaN;
+  }
+
   let result = numbers[0];
 
   for (let i = 0; i < operators.length; i++) {
@@ -45,6 +52,13 @@ function calculateExpr(expression) {
     } else if (operator === "*") {
       result = result * nextNumber;
     } else if (operator === "/") {
+
+      if (nextNumber === 0) {
+        // Handle division by zero
+        console.error("Division by zero");
+        return NaN;
+      }
+      
       result = result / nextNumber;
     }
   }
