@@ -31,6 +31,13 @@ function calculateExpr(expression) {
   function calculationMethod1() {
     const operators = expression.match(/[\+\-\*\/]/g);
     const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
+
+    if (operators.length !== numbers.length - 1) {
+      // Handle invalid expression
+      console.error("Invalid expression");
+      return NaN;
+    }
+
     let result = numbers[0];
 
     for (let i = 0; i < operators.length; i++) {
@@ -45,6 +52,11 @@ function calculateExpr(expression) {
       } else if (operator === "*") {
         result = result * nextNumber;
       } else if (operator === "/") {
+        if (nextNumber === 0) {
+          // Handle division by zero
+          console.error("Division by zero");
+          return NaN;
+        }
         result = result / nextNumber;
       }
     }
@@ -52,7 +64,7 @@ function calculateExpr(expression) {
   }
 
   function calculationMethod2() {
-    function operatorFunction(operator, num1, num2) {
+    function operate(operator, num1, num2) {
       if (operator === "+") {
         return num1 + num2;
       } else if (operator === "-") {
@@ -60,9 +72,14 @@ function calculateExpr(expression) {
       } else if (operator === "*") {
         return num1 * num2;
       } else if (operator === "/") {
+        if (num2 === 0) {
+          // Handle division by zero
+          console.error("Division by zero");
+          return NaN;
+        }
         return num1 / num2;
       } else {
-        console.log('ERROR in "operatorFunction": unknown operator!');
+        console.error('ERROR in "operate": unknown operator!');
         return;
       }
     }
@@ -77,10 +94,8 @@ function calculateExpr(expression) {
     const operators = expression.match(/[\+\-\*\/]/g);
     const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
     if (numbers.length - operators.length != 1) {
-      console.log(
-        `ERROR in "calculationMethod2": the number of operators and numbers do not match!`
-      );
-      return;
+      console.error(`ERROR in "calculationMethod2": Invalid expression!`);
+      return NaN;
     }
 
     let result = numbers[0];
@@ -88,10 +103,10 @@ function calculateExpr(expression) {
     for (let i = 0; i < operators.length; i++) {
       const operator = operators[i];
       if (isHighPriority(operator)) {
-        result = operatorFunction(operator, result, numbers[i + 1]);
+        result = operate(operator, result, numbers[i + 1]);
       } else {
         if (bufferValue) {
-          result = operatorFunction(bufferOperator, bufferValue, result);
+          result = operate(bufferOperator, bufferValue, result);
         }
         bufferValue = result;
         bufferOperator = operator;
@@ -99,7 +114,7 @@ function calculateExpr(expression) {
       }
     }
     if (bufferValue) {
-      result = operatorFunction(bufferOperator, bufferValue, result);
+      result = operate(bufferOperator, bufferValue, result);
     }
     return result;
   }
