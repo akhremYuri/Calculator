@@ -1,7 +1,7 @@
 const display = document.querySelector("#display");
 const calcLog = document.querySelector("#calcLog");
 
-// let isCalculationPerformed = false;
+let isCalculationPerformed = false;
 
 function appendDisplay(input) {
   if (input === "." && display.value.includes(".")) {
@@ -13,10 +13,10 @@ function appendDisplay(input) {
     return;
   }
 
-  // if (isCalculationPerformed) {
-  //   display.value = "";
-  //   isCalculationPerformed = false;
-  // }
+  if (isCalculationPerformed) {
+    display.value = "";
+    isCalculationPerformed = false;
+  }
   display.value = display.value + input;
 }
 
@@ -139,7 +139,7 @@ function calculate(expression = display.value, addToLog = true) {
   expression = expression.trim();
   display.value = calculateExpr(expression);
   if (addToLog) addListItemToLogList(expression);
-  // isCalculationPerformed = true;
+  isCalculationPerformed = true;
 }
 
 calcLog.onclick = function (event) {
