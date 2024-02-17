@@ -86,8 +86,8 @@ function calculate(expression = display.value, addToLog = true) {
     return;
   }
 
-  // Append the result to the current display value
-  display.value += " = " + result;
+  // Display only the result
+  display.value = result;
 
   if (addToLog) {
     addListItemToLogList(expression + " = " + result);
