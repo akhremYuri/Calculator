@@ -1,6 +1,7 @@
 const display = document.querySelector("#display");
 const calcLog = document.querySelector("#calcLog");
 
+
 // let isCalculationPerformed = false;
 
 function appendDisplay(input) {
@@ -13,12 +14,19 @@ function appendDisplay(input) {
     return;
   }
 
+  if (input === "0" && display.value === "0") {
+    return;
+  }
+
 
   // if (isCalculationPerformed) {
   //   display.value = "";
   //   isCalculationPerformed = false;
   // }
-  display.value = display.value + input;
+  display.value = display.value  + input;
+
+
+
 }
 
 function clearDisplay() {
@@ -32,6 +40,8 @@ function percentageDisplay() {
 function backspaceDisplay() {
   display.value = display.value.slice(0, -1);
 }
+
+
 
 function calculateExpr(expression) {
   function calculationMethod1() {
@@ -66,11 +76,13 @@ function calculateExpr(expression) {
         result = result / nextNumber;
       }
     }
+
     return result;
   }
 
   function calculationMethod2() {
     function operate(operator, num1, num2) {
+     
       if (operator === "+") {
         return num1 + num2;
       } else if (operator === "-") {
@@ -87,7 +99,9 @@ function calculateExpr(expression) {
       } else {
         console.error('ERROR in "operate": unknown operator!');
         return;
+
       }
+
     }
 
     function isHighPriority(operator) {
@@ -127,6 +141,7 @@ function calculateExpr(expression) {
 
   // return calculationMethod1();
   return calculationMethod2();
+
 }
 
 function addListItemToLogList(expression) {
@@ -136,11 +151,13 @@ function addListItemToLogList(expression) {
   calcLog.append(li);
 }
 
+
 function calculate(expression = display.value, addToLog = true) {
   expression = expression.trim();
   display.value = calculateExpr(expression);
   if (addToLog) addListItemToLogList(expression);
   // isCalculationPerformed = true;
+
 }
 
 calcLog.onclick = function (event) {
