@@ -1,7 +1,7 @@
 const display = document.querySelector("#display");
 const calcLog = document.querySelector("#calcLog");
 
-let isCalculationPerformed = false;
+// let isCalculationPerformed = false;
 
 function appendDisplay(input) {
   if (input === "." && display.value.includes(".")) {
