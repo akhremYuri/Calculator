@@ -78,7 +78,10 @@ function calculate(expression = display.value, addToLog = true) {
     alert("Invalid expression");
     return;
   }
-  display.value = result;
+
+  // Append the result to the current display value
+  display.value += " = " + result;
+
   if (addToLog) {
     addListItemToLogList(expression + " = " + result);
   }
