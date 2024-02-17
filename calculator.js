@@ -24,6 +24,11 @@ function clearDisplay() {
   display.value = "";
 }
 
+function backspaceDisplay() {
+  display.value = display.value.slice(0, -1);
+}
+
+
 function calculateExpr(expression) {
   const operators = expression.match(/[\+\-\*\/]/g);
   const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
