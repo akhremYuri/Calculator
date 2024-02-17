@@ -8,12 +8,16 @@ function appendDisplay(input) {
     return;
   }
 
+  if (input === "0" && display.value === "0") {
+    return;
+  }
+
   const operators = ["+", "-", "*", "/"];
 
-  if (isCalculationPerformed) {
-    display.value = "";
-    isCalculationPerformed = false;
-  }
+  // if (isCalculationPerformed) {
+  //   display.value = "";
+  //   isCalculationPerformed = false;
+  // }
 
   const lastChar = display.value.slice(-1);
 
