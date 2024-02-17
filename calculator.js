@@ -84,7 +84,7 @@ function calculateExpr(expression) {
 
   function calculationMethod2() {
     function operate(operator, num1, num2) {
-     
+
       if (operator === "+") {
         return num1 + num2;
       } else if (operator === "-") {
@@ -169,7 +169,7 @@ function calculate(expression = display.value, addToLog = true) {
   if (addToLog) {
     addListItemToLogList(expression + " = " + result);
   }
-  isCalculationPerformed = true;
+  // isCalculationPerformed = true;
 
 }
 
