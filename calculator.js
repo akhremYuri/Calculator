@@ -8,23 +8,24 @@ function appendDisplay(input) {
     return;
   }
 
-  const operators = ["+", "-", "*", "/"];
-
-  if (isCalculationPerformed) {
-    display.value = "";
-    isCalculationPerformed = false;
+  if (display.value === "" && input.match(/[.\+\-\*\/]/g)) {
+    alert("Enter the number first!");
+    return;
   }
 
-  const lastChar = display.value.slice(-1);
-
-  if (operators.includes(lastChar) && operators.includes(input)) {
-    // Replace the last operator with the new input
-    display.value = display.value.slice(0, -1) + input;
-  } else if (display.value === "" && operators.includes(input)) {
-    alert("Enter a number first!");
-  } else {
-    display.value += input;
+  if (input === "0" && display.value === "0") {
+    return;
   }
+
+
+  // if (isCalculationPerformed) {
+  //   display.value = "";
+  //   isCalculationPerformed = false;
+  // }
+  display.value = display.value  + input;
+
+
+
 }
 
 function clearDisplay() {
@@ -80,19 +81,10 @@ function addListItemToLogList(expression) {
 
 function calculate(expression = display.value, addToLog = true) {
   expression = expression.trim();
-  const result = calculateExpr(expression);
-  if (isNaN(result)) {
-    alert("Invalid expression");
-    return;
-  }
+  display.value = calculateExpr(expression);
+  if (addToLog) addListItemToLogList(expression);
+  // isCalculationPerformed = true;
 
-  // Append the result to the current display value
-  display.value += " = " + result;
-
-  if (addToLog) {
-    addListItemToLogList(expression + " = " + result);
-  }
-  isCalculationPerformed = true;
 }
 
 calcLog.onclick = function (event) {
