@@ -13,6 +13,10 @@ function appendDisplay(input) {
     return;
   }
 
+  if (input === "0" && display.value === "0") {
+    return;
+  }
+
   // if (isCalculationPerformed) {
   //   display.value = "";
   //   isCalculationPerformed = false;
@@ -58,6 +62,28 @@ function calculateExpr(expression) {
         result = result * nextNumber;
       } else if (operator === "/") {
         if (nextNumber === 0) {
+          // Handle division by zero
+          console.error("Division by zero");
+          return NaN;
+        }
+        result = result / nextNumber;
+      }
+    }
+
+    return result;
+  }
+
+  function calculationMethod2() {
+    function operate(operator, num1, num2) {
+      if (operator === "+") {
+        return num1 + num2;
+      } else if (operator === "-") {
+        return num1 - num2;
+      } else if (operator === "*") {
+        return num1 * num2;
+      } else if (operator === "/") {
+        if (num2 === 0) {
+          // Handle division by zero
           console.error("Division by zero");
           return NaN;
         }
@@ -130,7 +156,7 @@ function calculateExpr(expression) {
 function addListItemToLogList(expression) {
   const li = document.createElement("li");
   li.className = "logItem";
-  li.textContent = expression;
+  li.innerHTML = expression;
   calcLog.append(li);
 }
 
@@ -150,6 +176,8 @@ document.addEventListener("keydown", handleKeyDown);
 
 function handleKeyDown(event) {
   const key = event.key;
+  console.log(key);
+
   if (!isNaN(key) || ["+", "-", "*", "/", "."].includes(key)) {
     appendDisplay(key);
   } else if (key === "Enter") {
