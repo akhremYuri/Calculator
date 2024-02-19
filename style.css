@@ -13,7 +13,10 @@ body{
   display: flex;
   justify-content: center;
   /* align-items: center; */
+  box-shadow: 10px 10px 10px hsl(60, 94%, 39%), -10px -10px 10px hsl(240, 51%, 33%);
+
 }
+
 
 h1{
   margin-bottom: 30px;
@@ -23,7 +26,7 @@ h1{
   background: rgb(97, 82, 82);
   max-width: 500px;
   overflow: hidden;
-  box-shadow: 10px 10px 10px hsl(60, 94%, 39%), -10px -10px 10px hsl(240, 51%, 33%);
+
   font-family: Arial, Helvetica, sans-serif;
   border-radius: 5px;
 }
@@ -83,9 +86,10 @@ button:active{
 }
 
 .log {
-  font-size: 1.5em;  
-  border-top: 5px solid #000000;
-  background-color: white;
+  font-size: 1.5em;
+  border:2px solid blue;
+  color:white;
+  background-color: #333;
 }
 
 .log p {
