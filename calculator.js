@@ -58,7 +58,6 @@ function calculateExpr(expression) {
         result = result * nextNumber;
       } else if (operator === "/") {
         if (nextNumber === 0) {
-          // Handle division by zero
           console.error("Division by zero");
           return NaN;
         }
@@ -131,7 +130,7 @@ function calculateExpr(expression) {
 function addListItemToLogList(expression) {
   const li = document.createElement("li");
   li.className = "logItem";
-  li.innerHTML = expression;
+  li.textContent = expression;
   calcLog.append(li);
 }
 
@@ -151,8 +150,6 @@ document.addEventListener("keydown", handleKeyDown);
 
 function handleKeyDown(event) {
   const key = event.key;
-  console.log(key);
-
   if (!isNaN(key) || ["+", "-", "*", "/", "."].includes(key)) {
     appendDisplay(key);
   } else if (key === "Enter") {
