@@ -120,8 +120,13 @@ function calculate(expression = display.value, addToLog = true) {
     return;
   }
 
-  // Display only the result
-  display.value = result;
+  let decimalPortion = result % 1;
+  if (String(decimalPortion).length > 4) {
+    display.value = Number(result).toFixed(4);
+  } else {
+    // Display only the result
+    display.value = result;
+  }
 
   if (addToLog) {
     addListItemToLogList(expression + " = " + result);
