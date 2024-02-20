@@ -1,10 +1,22 @@
 const display = document.querySelector("#display");
 const calcLog = document.querySelector("#calcLog");
 
-// let isCalculationPerformed = false;
+let isCalculationPerformed = false;
 
 function appendDisplay(input) {
+  if (isCalculationPerformed) {
+    isCalculationPerformed = false;
+    if (input.match(/\d/g)) {
+      display.value = input;
+      return;
+    }
+  }
   if (input === "." && display.value.includes(".")) {
+    return;
+  }
+
+  if (display.value === "" && input.match(/[.\+\-\*\/]/g)) {
+    alert("Enter a number first!");
     return;
   }
 
@@ -13,12 +25,6 @@ function appendDisplay(input) {
   }
 
   const operators = ["+", "-", "*", "/"];
-
-  // if (isCalculationPerformed) {
-  //   display.value = "";
-  //   isCalculationPerformed = false;
-  // }
-
   const lastChar = display.value.slice(-1);
 
   if (operators.includes(lastChar) && operators.includes(input)) {
@@ -35,42 +41,66 @@ function clearDisplay() {
   display.value = "";
 }
 
+function percentageDisplay() {
+  display.value = display.value / 100;
+}
+
+function backspaceDisplay() {
+  display.value = display.value.slice(0, -1);
+}
+
 function calculateExpr(expression) {
+  function operate(operator, num1, num2) {
+    if (operator === "+") {
+      return num1 + num2;
+    } else if (operator === "-") {
+      return num1 - num2;
+    } else if (operator === "*") {
+      return num1 * num2;
+    } else if (operator === "/") {
+      if (num2 === 0) {
+        // Handle division by zero
+        console.error("Division by zero");
+        return NaN;
+      }
+      return num1 / num2;
+    } else {
+      console.error('ERROR in "operate": unknown operator!');
+      return;
+    }
+  }
+
+  function isHighPriority(operator) {
+    if (operator.match(/[\*\/]/g)) {
+      return 1;
+    }
+    return 0;
+  }
+
   const operators = expression.match(/[\+\-\*\/]/g);
   const numbers = expression.split(/[\+\-\*\/]/g).map(parseFloat);
-
-  if (operators == null || numbers.some(isNaN)) {
-    console.error("Invalid expression");
+  if (numbers.length - operators.length != 1) {
+    console.error(`ERROR in "calculationMethod2": Invalid expression!`);
     return NaN;
   }
 
   let result = numbers[0];
-
+  let bufferValue, bufferOperator;
   for (let i = 0; i < operators.length; i++) {
     const operator = operators[i];
-    const nextNumber = numbers[i + 1];
-
-    switch (operator) {
-      case "+":
-        result += nextNumber;
-        break;
-      case "-":
-        result -= nextNumber;
-        break;
-      case "*":
-        result *= nextNumber;
-        break;
-      case "/":
-        if (nextNumber === 0) {
-          console.error("Division by zero");
-          return NaN;
-        }
-        result /= nextNumber;
-        break;
-      default:
-        console.error("Unknown operator");
-        return NaN;
+    if (isHighPriority(operator)) {
+      result = operate(operator, result, numbers[i + 1]);
+    } else {
+      if (bufferValue) {
+        result = operate(bufferOperator, bufferValue, result);
+      }
+      bufferValue = result;
+      bufferOperator = operator;
+      result = numbers[i + 1];
     }
+  }
+  if (bufferValue) {
+    result = operate(bufferOperator, bufferValue, result);
   }
   return result;
 }
@@ -90,13 +120,18 @@ function calculate(expression = display.value, addToLog = true) {
     return;
   }
 
-  // Display only the result
-  display.value = result;
+  let decimalPortion = result % 1;
+  if (String(decimalPortion).length > 4) {
+    display.value = Number(result).toFixed(4);
+  } else {
+    // Display only the result
+    display.value = result;
+  }
 
   if (addToLog) {
     addListItemToLogList(expression + " = " + result);
   }
-  // isCalculationPerformed = true;
+  isCalculationPerformed = true;
 }
 
 calcLog.onclick = function (event) {
